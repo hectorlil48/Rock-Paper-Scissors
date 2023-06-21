@@ -15,29 +15,38 @@ const playerSelection = prompt(
   "Please select rock, paper or scissors"
 ).toLowerCase();
 
+let playerScore = 0;
+let computerScore = 0;
+
+console.log("Computers pick: " + computerSelection);
+console.log("Players pick: " + playerSelection);
+
 function playRound(playerSelection, computerSelection) {
-  console.log(playerSelection, computerSelection);
   if (playerSelection === computerSelection) {
-    return "Its a tie";
+    return "Its a tie!";
   } else if (playerSelection === "rock") {
-    if (computerSelection === "scissors") {
-      return "You Win! Rock beats Scissors";
-    } else {
-      return "You Lose! Paper beats Rock";
-    }
+    return computerSelection === "scissors"
+      ? "You Win! Rock beats Scissors"
+      : "You Lose! Paper beats Rock";
   } else if (playerSelection === "paper") {
-    if (computerSelection === "rock") {
-      return "You Win! Paper beats Rock";
-    } else {
-      return "You Lose! Scissors beats Paper";
-    }
+    return computerSelection === "rock"
+      ? "You Win! Paper beats rock"
+      : "You Lose! Scissors beats paper";
   } else if (playerSelection === "scissors") {
-    if (computerSelection === "paper") {
-      return "You Win! Scissors beat paper";
-    } else {
-      return "You Lose, Rock beats Scissors";
-    }
+    return computerSelection === "paper"
+      ? "You Win! Scissors beats paper"
+      : "You Lose! Rock beats Scissors";
+  } else {
+    return "Not a valid pick";
   }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+  console.log(playRound(playerSelection, computerSelection));
+  console.log(playRound(playerSelection, computerSelection));
+  console.log(playRound(playerSelection, computerSelection));
+  console.log(playRound(playerSelection, computerSelection));
+  console.log(playRound(playerSelection, computerSelection));
+}
+
+game();
