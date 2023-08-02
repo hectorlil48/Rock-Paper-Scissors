@@ -14,8 +14,7 @@ let computerPoints = 0;
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     // Adds event listenr for a click of a button
-    const result = playRound(button.className, computerPlay()); // plays a round with the class name and computers random selction and returns results.
-    resultEl.textContent = result; // updates the result paragraph with the winner
+    playRound(button.className, computerPlay()); // plays a round with the class name and computers random selction and returns results.
   });
 });
 
@@ -25,7 +24,15 @@ function computerPlay() {
   return choices[randomChoice]; // Use random number to get choice using index
 }
 
+function disableButtons() {
+  // disable buttons
+  buttons.forEach((elem) => {
+    elem.disabled = true;
+  });
+}
+
 function playRound(playerSelection, computerSelection) {
+  let result = "";
   if (playerSelection === computerSelection) {
     return "It's a tie!";
   } else if (
@@ -35,10 +42,22 @@ function playRound(playerSelection, computerSelection) {
   ) {
     playerPoints++;
     playerScore.textContent = playerPoints;
-    return `You win! ${playerSelection} beats ${computerSelection}`;
+    result = `You won! ${playerSelection} beats ${computerSelection}`;
+
+    if (playerPoints === 5) {
+      result = `You Won the game! Reload the page to play again`; // if equal to 5 call disable button function
+      disableButtons();
+    }
   } else {
     computerPoints++;
     computerScore.textContent = computerPoints;
-    return `You lose! ${computerSelection} beats ${playerSelection}`;
+    result = `You Lose! ${computerSelection} beats ${playerSelection}`;
+
+    if (computerPoints === 5) {
+      result = `You Lose the game! Reload the page to play again`; // if equal to 5 call disable button function
+      disableButtons();
+    }
   }
+  resultEl.textContent = result;
+  return;
 }
